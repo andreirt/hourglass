@@ -1,0 +1,35 @@
+<Widget>
+    <Kind>22</Kind>
+    <Name>Escolha a câmera</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>iSight Integrada</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>12</Kind>
+    <Name>Largura da câmera</Name>
+    <Value>1920</Value>
+</Widget>
+<Widget>
+    <Kind>12</Kind>
+    <Name>Altura da câmera</Name>
+    <Value>1080</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Pixels por frame (velocidade)</Name>
+    <Value>237</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>Salvar imagem</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Intervalo de salvamento (em minutos)</Name>
+    <Value>336</Value>
+</Widget>
