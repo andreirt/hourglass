@@ -8,34 +8,7 @@ void ofApp::setup(){
     gui->setFontSize(OFX_UI_FONT_SMALL, 8);
     
     // lista as câmeras conectadas a este computador
-    this->grabber.setDeviceID( 0 );
-    this->grabber.setDesiredFrameRate(30);
-    this->grabber.initGrabber(this->cameraWidth, this->cameraHeight);
     vector< ofVideoDevice > devices = this->grabber.listDevices();
-    
-    this->screenImage.allocate(this->cameraWidth, this->cameraHeight, OF_IMAGE_COLOR_ALPHA);
-    
-    // paints with white
-    unsigned char* pixels = this->screenImage.getPixels();
-    for (int i =0; i<this->screenImage.getWidth() * this->screenImage.getHeight() * 4; i++) {
-        pixels[i] = 255;
-    }
-    
-    // check if we have a image to load
-    ofImage previousImage;
-    if (previousImage.loadImage("hourglass.png")) {
-        
-        if (previousImage.getWidth() == this->screenImage.getWidth() && previousImage.getHeight() == this->screenImage.getHeight()) {
-            
-            this->screenImage = previousImage;
-            
-        }
-        
-    }
-    
-    
-    this->x = (int) ofRandom(0, this->cameraWidth);
-    this->y = (int) ofRandom(0, this->cameraHeight);
     
     vector<string> *cameras = new vector<string>();
     vector<ofVideoDevice>::iterator it;
@@ -45,14 +18,22 @@ void ofApp::setup(){
         cameras->push_back(device.deviceName);
     }
     
-    this->gui->addDropDownList("Escolha a câmera", *cameras, 400, 10);
-    this->gui->addWidgetRight( new ofxUILabel(180, "Largura da câmera", OFX_UI_FONT_SMALL) );
-    this->gui->addWidgetRight( new ofxUITextInput("Largura da câmera", "1920", 80, 18) );
-    this->gui->addWidgetRight( new ofxUILabel(160, "Altura da câmera", OFX_UI_FONT_SMALL) );
-    this->gui->addWidgetRight( new ofxUITextInput("Altura da câmera", "1080", 80, 18));
+    this->cameraList = this->gui->addDropDownList("Escolha a câmera", *cameras, 400, 10);
+    this->cameraList->setAllowMultiple(false);
+    
+    this->gui->addWidgetRight( new ofxUILabel(180, ofApp::CAMERA_WIDTH_LABEL, OFX_UI_FONT_SMALL) );
+    this->cameraWidthTextInput = new ofxUITextInput("CameraWidth", "1920", 80, 18) ;
+    this->cameraWidthTextInput->setOnlyNumericInput(true);
+    this->gui->addWidgetRight( cameraWidthTextInput );
+    
+    this->gui->addWidgetRight( new ofxUILabel(160, ofApp::CAMERA_HEIGHT_LABEL, OFX_UI_FONT_SMALL) );
+    this->cameraHeightTextInput = new ofxUITextInput("CameraHeight", "1080", 80, 18);
+    this->cameraHeightTextInput->setOnlyNumericInput(true);
+    this->gui->addWidgetRight( this->cameraHeightTextInput );
+    
     this->gui->addSpacer();
     
-    this->gui->addIntSlider("Pixels por frame (velocidade)", 1, 512, 10, 400, 18);
+    this->pixelsPerFrameSlider = this->gui->addIntSlider( ofApp::PIXELS_PER_FRAME_LABEL, 1, 256, 10, 400, 18);
     this->gui->addSpacer();
     
     this->gui->addToggle("Salvar imagem", true, 16, 16);
@@ -74,6 +55,58 @@ void ofApp::setup(){
     
     ofAddListener(this->gui->newGUIEvent, this, &ofApp::guiEvent);
     this->gui->loadSettings("settings.xml");
+    
+    // set camera
+    vector<int> selectedCamera = this->cameraList->getSelectedIndeces();
+    if (selectedCamera.size() > 0) {
+        this->grabber.setDeviceID( selectedCamera[0] - 1 );
+    }
+    else {
+        this->grabber.setDeviceID( 0 );
+    }
+    
+    this->cameraWidth = this->cameraWidthTextInput->getIntValue();
+    this->cameraHeight = this->cameraHeightTextInput->getIntValue();
+    
+    this->grabber.setDesiredFrameRate(30);
+    this->grabber.initGrabber(this->cameraWidth, this->cameraHeight);
+    
+    // image to be drawn
+    this->screenImage.allocate(this->cameraWidth, this->cameraHeight, OF_IMAGE_COLOR_ALPHA);
+    
+    // paints with white
+    unsigned char* pixels = this->screenImage.getPixels();
+    for (int i =0; i<this->screenImage.getWidth() * this->screenImage.getHeight() * 4; i++) {
+        pixels[i] = 255;
+    }
+    
+    // check if we have a image to load
+    ofImage previousImage;
+    if (previousImage.loadImage("hourglass.png")) {
+        
+        if (previousImage.getWidth() == this->screenImage.getWidth() && previousImage.getHeight() == this->screenImage.getHeight()) {
+            
+            this->screenImage = previousImage;
+            
+        }
+        
+    }
+    
+    // where we are going to start copying pixels
+    this->x = (int) ofRandom(0, this->cameraWidth);
+    this->y = (int) ofRandom(0, this->cameraHeight);
+    
+    // speed
+    this->pixelsPerFrame = this->pixelsPerFrameSlider->getScaledValue();
+
+    
+    //ofxUITextInput* windowWidth = (ofxUITextInput*) this->gui->getWidget("Largura da janela");
+    //this->windowWidth = windowWidth->getIntValue();
+    
+    //ofSetWindowShape( this->gui->getuitext, <#int height#>);
+    //ofSetWindowPosition(<#int x#>, <#int y#>);
+
+    
 }
 
 //--------------------------------------------------------------
@@ -230,6 +263,9 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
 {
     if (e.getName() == "Aplicar alterações") {
         this->gui->saveSettings("settings.xml");
+        
+        // speed
+        this->pixelsPerFrame = this->pixelsPerFrameSlider->getScaledValue();
     }
     else if (e.getName() == "Ocultar") {
         ofxUIButton* button = e.getButton();

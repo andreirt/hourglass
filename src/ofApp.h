@@ -23,6 +23,14 @@ private:
     int intervalToSaveImage = 15;
     
     const float MAX_STRENGTH_AROUND_PIXEL = .15;
+    const string CAMERA_WIDTH_LABEL = "Largura da câmera"; // "Camera width"
+    const string CAMERA_HEIGHT_LABEL = "Altura da câmera"; // "Camera height"
+    const string PIXELS_PER_FRAME_LABEL = "Pixels por frame (velocidade)"; // "Pixels per frame (speed)
+    
+    ofxUIDropDownList* cameraList;
+    ofxUITextInput* cameraWidthTextInput;
+    ofxUITextInput* cameraHeightTextInput;
+    ofxUIIntSlider* pixelsPerFrameSlider;
     
     void paintPixel( int pixelX, int pixelY, ofPixels pixels, float strength );
 
