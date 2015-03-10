@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
@@ -6,18 +6,19 @@
 		<Option makefile="makefile" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons\;src\;" />
+		<Option virtualFolders="addons\;src\;addons\ofxXmlSettings\libs\;addons\ofxXmlSettings\src\;" />
 		<Build>
 			<Target title="release">
-				<Option output="bin\$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
-				<Option object_output="obj\Release" />
-				<Option external_deps="..\..\..\libs\openFrameworksCompiled\lib\win_cb\openFrameworks.lib;" />
+				<Option object_output="obj/Release" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/win_cb/openFrameworks.lib;" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="../../../addons/ofxUI/src" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -25,10 +26,10 @@
 				</Linker>
 			</Target>
 			<Target title="debug">
-				<Option output="bin\$(PROJECT_NAME)_DEBUG" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/$(PROJECT_NAME)_DEBUG" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
-				<Option object_output="obj\Debug\" />
-				<Option external_deps="..\..\..\libs\openFrameworksCompiled\lib\win_cb\openFrameworksDebug.lib;" />
+				<Option object_output="obj/Debug/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/win_cb/openFrameworksDebug.lib;" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
@@ -42,36 +43,34 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wno-multichar" />
-			<Add directory="..\..\..\libs\glu\include" />
-			<Add directory="..\..\..\libs\freetype\include" />
-			<Add directory="..\..\..\libs\freetype\include\freetype2" />
-			<Add directory="..\..\..\libs\FreeImage\include" />
-			<Add directory="..\..\..\libs\quicktime\include" />
-			<Add directory="..\..\..\libs\rtAudio\include" />
-			<Add directory="..\..\..\libs\fmodex\include" />
-			<Add directory="..\..\..\libs\videoInput\include" />
-			<Add directory="..\..\..\libs\glew\include" />
-			<Add directory="..\..\..\libs\glut\include" />
-			<Add directory="..\..\..\libs\glfw\include" />
-			<Add directory="..\..\..\libs\openFrameworks" />
-			<Add directory="..\..\..\libs\openFrameworks\3d" />
-			<Add directory="..\..\..\libs\openFrameworks\app" />
-			<Add directory="..\..\..\libs\openFrameworks\communication" />
-			<Add directory="..\..\..\libs\openFrameworks\events" />
-			<Add directory="..\..\..\libs\openFrameworks\gl" />
-			<Add directory="..\..\..\libs\openFrameworks\graphics" />
-			<Add directory="..\..\..\libs\openFrameworks\math" />
-			<Add directory="..\..\..\libs\openFrameworks\sound" />
-			<Add directory="..\..\..\libs\openFrameworks\types" />
-			<Add directory="..\..\..\libs\openFrameworks\utils" />
-			<Add directory="..\..\..\libs\openFrameworks\video" />
-			<Add directory="..\..\..\libs\poco\include" />
-			<Add directory="..\..\..\libs\tess2\include" />
-			<Add directory="..\..\..\libs\cairo\include\cairo" />
+			<Add directory="../../../libs/glu/include" />
+			<Add directory="../../../libs/freetype/include" />
+			<Add directory="../../../libs/freetype/include/freetype2" />
+			<Add directory="../../../libs/FreeImage/include" />
+			<Add directory="../../../libs/quicktime/include" />
+			<Add directory="../../../libs/rtAudio/include" />
+			<Add directory="../../../libs/fmodex/include" />
+			<Add directory="../../../libs/videoInput/include" />
+			<Add directory="../../../libs/glew/include" />
+			<Add directory="../../../libs/glut/include" />
+			<Add directory="../../../libs/glfw/include" />
+			<Add directory="../../../libs/openFrameworks" />
+			<Add directory="../../../libs/openFrameworks/3d" />
+			<Add directory="../../../libs/openFrameworks/app" />
+			<Add directory="../../../libs/openFrameworks/communication" />
+			<Add directory="../../../libs/openFrameworks/events" />
+			<Add directory="../../../libs/openFrameworks/gl" />
+			<Add directory="../../../libs/openFrameworks/graphics" />
+			<Add directory="../../../libs/openFrameworks/math" />
+			<Add directory="../../../libs/openFrameworks/sound" />
+			<Add directory="../../../libs/openFrameworks/types" />
+			<Add directory="../../../libs/openFrameworks/utils" />
+			<Add directory="../../../libs/openFrameworks/video" />
+			<Add directory="../../../libs/poco/include" />
+			<Add directory="../../../libs/tess2/include" />
+			<Add directory="../../../libs/cairo/include/cairo" />
 			<Add directory="../../../addons/ofxXmlSettings/libs" />
 			<Add directory="../../../addons/ofxXmlSettings/src" />
-			<Add directory="../../../addons\ofxXmlSettings\libs" />
-			<Add directory="../../../addons\ofxXmlSettings\src" />
 		</Compiler>
 		<Linker>
 			<Add library="..\..\..\libs\FreeImage\lib\win_cb\FreeImage.lib" />
@@ -115,20 +114,132 @@
 			<Add library="Comdlg32" />
 		</Linker>
 		<ExtraCommands>
-			<Add after="xcopy /e /i /y &quot;$(PROJECT_DIR)..\..\..\export\win_cb\*.dll&quot;  &quot;$(PROJECT_DIR)bin&quot;" />
-			<Add after="cmd /c if not exist &quot;$(PROJECT_DIR)bin/data&quot; mkdir &quot;$(PROJECT_DIR)bin/data&quot;" />
+			<Add after='xcopy /e /i /y &quot;$(PROJECT_DIR)..\..\..\export\win_cb\*.dll&quot;  &quot;$(PROJECT_DIR)bin&quot;' />
+			<Add after='cmd /c if not exist &quot;$(PROJECT_DIR)bin/data&quot; mkdir &quot;$(PROJECT_DIR)bin/data&quot;' />
 			<Mode after="always" />
 		</ExtraCommands>
+		<Unit filename="../../../addons/ofxUI/src/ofxUI.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUI2DGraph.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUI2DGraph.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUI2DPad.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUI2DPad.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIBaseDraws.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIBaseDraws.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIBiLabelSlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIBiLabelSlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIButton.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIButton.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUICanvas.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUICanvas.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUICircleSlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUICircleSlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIDefines.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIDragableLabelButton.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIDragableLabelButton.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIDropDownList.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIDropDownList.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIEventArgs.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIEventArgs.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIFPS.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIFPS.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIFPSSlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIFPSSlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImage.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImage.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageButton.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageButton.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageSampler.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageSampler.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageSlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageSlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageToggle.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageToggle.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabel.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabel.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabelButton.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabelButton.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabelToggle.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabelToggle.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMinimalSlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMinimalSlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMovingGraph.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMovingGraph.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMultiImageButton.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMultiImageButton.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMultiImageToggle.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIMultiImageToggle.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUINumberDialer.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUINumberDialer.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIOFWrapper.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRadio.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRadio.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRangeSlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRangeSlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRectangle.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRectangle.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRotarySlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRotarySlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIScrollableCanvas.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIScrollableCanvas.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISlider.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISlider.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISortableList.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISortableList.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISpacer.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISpacer.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISpectrum.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISpectrum.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISuperCanvas.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUISuperCanvas.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUITabBar.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUITabBar.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUITextArea.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUITextArea.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUITextInput.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUITextInput.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIToggle.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIToggle.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIToggleMatrix.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIToggleMatrix.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIUtils.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIValuePlotter.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIValuePlotter.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWaveform.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWaveform.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWidget.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWidget.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWidgetWithLabel.cpp" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWidgetWithLabel.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWidgets.h" />
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWrapper.h" />
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxml.cpp">
+			<Option virtualFolder="addons/ofxXmlSettings/libs" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxml.h">
+			<Option virtualFolder="addons/ofxXmlSettings/libs" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp">
+			<Option virtualFolder="addons/ofxXmlSettings/libs" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp">
+			<Option virtualFolder="addons/ofxXmlSettings/libs" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp">
+			<Option virtualFolder="addons/ofxXmlSettings/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h">
+			<Option virtualFolder="addons/ofxXmlSettings/src" />
+		</Unit>
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="src\main.cpp">
+		<Unit filename="src/main.cpp">
 			<Option virtualFolder="src" />
 		</Unit>
-		<Unit filename="src\ofApp.cpp">
+		<Unit filename="src/ofApp.cpp">
 			<Option virtualFolder="src" />
 		</Unit>
-		<Unit filename="src\ofApp.h">
+		<Unit filename="src/ofApp.h">
 			<Option virtualFolder="src" />
 		</Unit>
 		<Extensions>
@@ -136,23 +247,5 @@
 			<debugger />
 			<envvars />
 		</Extensions>
-		<Unit filename="../../../addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
-			<Option virtualFolder="addons\ofxXmlSettings\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxXmlSettings\src\ofxXmlSettings.h">
-			<Option virtualFolder="addons\ofxXmlSettings\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxXmlSettings\libs\tinyxml.cpp">
-			<Option virtualFolder="addons\ofxXmlSettings\libs" />
-		</Unit>
-		<Unit filename="../../../addons\ofxXmlSettings\libs\tinyxml.h">
-			<Option virtualFolder="addons\ofxXmlSettings\libs" />
-		</Unit>
-		<Unit filename="../../../addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
-			<Option virtualFolder="addons\ofxXmlSettings\libs" />
-		</Unit>
-		<Unit filename="../../../addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
-			<Option virtualFolder="addons\ofxXmlSettings\libs" />
-		</Unit>
 	</Project>
 </CodeBlocks_project_file>
