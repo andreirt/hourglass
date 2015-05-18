@@ -1,35 +1,5 @@
 <Widget>
-    <Kind>22</Kind>
-    <Name>Escolha a câmera</Name>
-    <Value>1</Value>
-</Widget>
-<Widget>
-    <Kind>17</Kind>
-    <Name>iSight Integrada</Name>
-    <Value>1</Value>
-</Widget>
-<Widget>
-    <Kind>12</Kind>
-    <Name>CameraWidth</Name>
-    <Value>640</Value>
-</Widget>
-<Widget>
-    <Kind>12</Kind>
-    <Name>CameraHeight</Name>
-    <Value>480</Value>
-</Widget>
-<Widget>
-    <Kind>42</Kind>
-    <Name>Pixels por frame (velocidade)</Name>
-    <Value>48</Value>
-</Widget>
-<Widget>
     <Kind>2</Kind>
-    <Name>Salvar imagem</Name>
-    <Value>1</Value>
-</Widget>
-<Widget>
-    <Kind>42</Kind>
-    <Name>Intervalo de salvamento (em minutos)</Name>
-    <Value>315</Value>
+    <Name>Exibir esta tela ao iniciar</Name>
+    <Value>0</Value>
 </Widget>

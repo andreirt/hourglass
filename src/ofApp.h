@@ -7,32 +7,37 @@ class ofApp : public ofBaseApp{
 
 private:
     ofxUICanvas *gui;
+    ofxUICanvas *cameraPanel;
+    ofxUICanvas *imagePanel;
+    ofImage* logos;
+
     bool hideButtonReleased = false;
-    
+
     ofVideoGrabber grabber;
     int selectedCameraIndex = 0;
-    
+
     ofImage screenImage;
     int x, y;
-    int pixelsPerFrame = 10;
-    
+
     int cameraWidth = 640;
     int cameraHeight = 480;
-    
+
     float lastTimeImageWasSaved = 0;
-    int intervalToSaveImage = 15;
-    
+
     const float MAX_STRENGTH_AROUND_PIXEL = .15;
     const string CAMERA_WIDTH_LABEL = "Largura da câmera"; // "Camera width"
     const string CAMERA_HEIGHT_LABEL = "Altura da câmera"; // "Camera height"
     const string PIXELS_PER_FRAME_LABEL = "Pixels por frame (velocidade)"; // "Pixels per frame (speed)
-    
+
+    ofxUISpacer* titleSpacer;
     ofxUIDropDownList* cameraList;
     ofxUITextInput* cameraWidthTextInput;
     ofxUITextInput* cameraHeightTextInput;
     ofxUIIntSlider* pixelsPerFrameSlider;
-    
+    ofxUIIntSlider* intervalToSaveSlider;
+
     void paintPixel( int pixelX, int pixelY, ofPixels pixels, float strength );
+    void fillImageWithWhite( ofImage* image );
 
 public:
     void setup();
@@ -52,5 +57,7 @@ public:
     // ofxUI
     void exit();
     void guiEvent(ofxUIEventArgs &e);
-		
+    void cameraPanelEvent(ofxUIEventArgs &e);
+    void imagePanelEvent(ofxUIEventArgs &e);
+
 };
