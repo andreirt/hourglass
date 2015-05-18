@@ -1,5 +1,14 @@
 #include "ofApp.h"
 
+const string ofApp::CAMERA_WIDTH_LABEL = "Largura da câmera";
+const string ofApp::CAMERA_HEIGHT_LABEL = "Altura da câmera";
+const string ofApp::PIXELS_PER_FRAME_LABEL = "Pixels por frame (velocidade)";
+const string ofApp::SAVE_IMAGE_LABEL = "Salvar imagem";
+const string ofApp::RESET_IMAGE_LABEL = "Limpar imagem";
+const string ofApp::SUPPORT_BUTTON_NAME = "support";
+const string ofApp::SAVE_LABEL = "Salvar";
+const string ofApp::HIDE_LABEL = "Ocultar";
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 
@@ -21,7 +30,7 @@ void ofApp::setup(){
     this->gui->addLabel("title", "Ampulheta", OFX_UI_FONT_LARGE);
     this->gui->addSpacer();
 
-    this->cameraPanel = new ofxUICanvas(0, 0, 400, 200);
+    this->cameraPanel = new ofxUICanvas(0, 0, 400, 180);
     this->cameraPanel->setFontSize(OFX_UI_FONT_SMALL, 8);
     this->cameraPanel->setWidgetSpacing(15);
     this->gui->addWidgetDown(this->cameraPanel);
@@ -56,23 +65,26 @@ void ofApp::setup(){
     this->cameraHeightTextInput->setDrawOutlineHighLight(true);
     this->cameraPanel->addWidgetRight( this->cameraHeightTextInput );
 
-    this->imagePanel = new ofxUICanvas(0, 0, 400, 200);
+    this->cameraPanel->addWidgetDown( new ofxUILabel(360, "Alterações na câmera exigem que", OFX_UI_FONT_SMALL) );
+    this->cameraPanel->addWidgetDown( new ofxUILabel(360, "o software seja reiniciado", OFX_UI_FONT_SMALL) );
+
+    this->imagePanel = new ofxUICanvas(0, 0, 400, 180);
     this->imagePanel->setFontSize(OFX_UI_FONT_SMALL, 8);
     this->imagePanel->setWidgetSpacing(15);
     this->gui->addWidgetRight(this->imagePanel);
 
-    this->pixelsPerFrameSlider = new ofxUIIntSlider( ofApp::PIXELS_PER_FRAME_LABEL, 1, 256, 10, 400, 18);
+    this->pixelsPerFrameSlider = this->imagePanel->addIntSlider(ofApp::PIXELS_PER_FRAME_LABEL, 1, 256, 10, 270, 18);
     this->pixelsPerFrameSlider->setDrawOutline(true);
-    this->imagePanel->addWidgetDown(pixelsPerFrameSlider);
+    this->pixelsPerFrameSlider->setDrawFill(true);
 
-    ofxUIToggle* saveToggle = this->imagePanel->addToggle("Salvar imagem", true, 16, 16);
+    ofxUIToggle* saveToggle = this->imagePanel->addToggle(ofApp::SAVE_IMAGE_LABEL, true, 16, 16);
     saveToggle->setDrawOutline(true);
 
     this->intervalToSaveSlider = new ofxUIIntSlider("Intervalo de salvamento (em minutos)", 1, 24 * 60, 30, 270, 18);
     this->intervalToSaveSlider->setDrawOutline(true);
     this->imagePanel->addWidgetDown( this->intervalToSaveSlider );
 
-    ofxUILabelButton* clearButton = this->gui->addLabelButton("Limpar imagem", false, 200, 20);
+    ofxUILabelButton* clearButton = this->gui->addLabelButton(ofApp::RESET_IMAGE_LABEL, false, 200, 20);
     clearButton->setDrawFill(true);
     clearButton->setDrawOutline(true);
     this->imagePanel->addWidgetDown( clearButton );
@@ -82,11 +94,11 @@ void ofApp::setup(){
     showAtStartToggle->setDrawOutline(true);
     this->gui->addSpacer();
 
-    ofxUILabelButton* saveButton = this->gui->addLabelButton("Salvar", false, 100, 20);
+    ofxUILabelButton* saveButton = this->gui->addLabelButton(ofApp::SAVE_LABEL, false, 100, 20);
     saveButton->setDrawFill(true);
     saveButton->setDrawOutline(true);
 
-    ofxUILabelButton* hideButton = new ofxUILabelButton("Ocultar", false, 100, 20);
+    ofxUILabelButton* hideButton = new ofxUILabelButton(ofApp::HIDE_LABEL, false, 100, 20);
     hideButton->setDrawFill(true);
     hideButton->setDrawOutline(true);
     this->gui->addWidgetRight(hideButton);
@@ -99,10 +111,7 @@ void ofApp::setup(){
     this->gui->addSpacer();
 
     this->gui->addLabel("Realização");
-
-    this->logos = new ofImage();
-    this->logos->loadImage("funarte.png");
-    this->gui->addImage("support", this->logos, this->logos->getWidth(), this->logos->getHeight(), false);
+    this->gui->addImageButton(ofApp::SUPPORT_BUTTON_NAME, "funarte.png", false, 509, 60);
 
     ofAddListener(this->gui->newGUIEvent, this, &ofApp::guiEvent);
     ofAddListener(this->cameraPanel->newGUIEvent, this, &ofApp::cameraPanelEvent);
@@ -209,11 +218,7 @@ void ofApp::update(){
             this->screenImage.saveImage("hourglass.png");
 
             // image we will save to have a recording of work
-            char filename[64];
-            sprintf( filename, "hourglass_%04d_%02d_%02d_%02d_%02d_%02d.png", ofGetYear(), ofGetMonth(), ofGetDay(), ofGetHours(), ofGetMinutes(), ofGetSeconds() );
-
-            this->screenImage.saveImage(filename);
-
+            this->saveCurrentImageWithTimestap();
             this->lastTimeImageWasSaved = ofGetElapsedTimef();
         }
 
@@ -308,10 +313,9 @@ void ofApp::mouseReleased(int x, int y, int button){
 
     if (this->hideButtonReleased) {
         this->gui->setVisible(false);
+        this->cameraPanel->setVisible(false);
+        this->imagePanel->setVisible(false);
         this->hideButtonReleased = false;
-    }
-    else {
-        this->gui->setVisible(true);
     }
 }
 
@@ -342,22 +346,20 @@ void ofApp::exit()
 // ofxUI
 void ofApp::guiEvent(ofxUIEventArgs &e)
 {
-    ofLog() << "e.getName(): " << e.getName();
-    if (e.getName() == "Salvar") {
+    if (e.getName() == ofApp::SAVE_LABEL) {
         this->gui->saveSettings("settings.xml");
         this->cameraPanel->saveSettings("camera.xml");
         this->imagePanel->saveSettings("image.xml");
     }
-    else if (e.getName() == "Ocultar") {
+    else if (e.getName() == ofApp::HIDE_LABEL) {
         ofxUIButton* button = e.getButton();
         if (button->getValue()) {
             this->hideButtonReleased = true;
             button->setValue(false);
         }
     }
-    else if (e.getName() == "Limpar imagem") {
-        this->fillImageWithWhite( &this->screenImage );
-        this->screenImage.saveImage("hourglass.png");
+    else if (e.getName() == ofApp::SUPPORT_BUTTON_NAME) {
+        ofLaunchBrowser("http://www.funarte.gov.br/");
     }
 }
 
@@ -368,10 +370,12 @@ void ofApp::cameraPanelEvent(ofxUIEventArgs &e)
 
 void ofApp::imagePanelEvent(ofxUIEventArgs &e)
 {
-    ofLog() << "e.getName(): " << e.getName();
-    if (e.getName() == "Limpar imagem") {
+    if (e.getName() == ofApp::RESET_IMAGE_LABEL) {
         this->fillImageWithWhite( &this->screenImage );
         this->screenImage.saveImage("hourglass.png");
+    }
+    else if (e.getName() == ofApp::SAVE_IMAGE_LABEL) {
+        this->saveCurrentImageWithTimestap();
     }
 }
 
@@ -387,4 +391,12 @@ void ofApp::fillImageWithWhite( ofImage* image )
     for (int i =0; i < image->getWidth() * image->getHeight() * bytesPerPixel; i++) {
         pixels[i] = 255;
     }
+}
+
+void ofApp::saveCurrentImageWithTimestap()
+{
+    char filename[64];
+    sprintf( filename, "hourglass_%04d_%02d_%02d_%02d_%02d_%02d.png", ofGetYear(), ofGetMonth(), ofGetDay(), ofGetHours(), ofGetMinutes(), ofGetSeconds() );
+
+    this->screenImage.saveImage(filename);
 }

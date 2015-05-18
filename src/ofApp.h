@@ -9,7 +9,6 @@ private:
     ofxUICanvas *gui;
     ofxUICanvas *cameraPanel;
     ofxUICanvas *imagePanel;
-    ofImage* logos;
 
     bool hideButtonReleased = false;
 
@@ -25,9 +24,14 @@ private:
     float lastTimeImageWasSaved = 0;
 
     const float MAX_STRENGTH_AROUND_PIXEL = .15;
-    const string CAMERA_WIDTH_LABEL = "Largura da câmera"; // "Camera width"
-    const string CAMERA_HEIGHT_LABEL = "Altura da câmera"; // "Camera height"
-    const string PIXELS_PER_FRAME_LABEL = "Pixels por frame (velocidade)"; // "Pixels per frame (speed)
+    const static string CAMERA_WIDTH_LABEL;
+    const static string CAMERA_HEIGHT_LABEL;
+    const static string PIXELS_PER_FRAME_LABEL;
+    const static string SAVE_IMAGE_LABEL;
+    const static string SAVE_LABEL;
+    const static string HIDE_LABEL;
+    const static string RESET_IMAGE_LABEL;
+    const static string SUPPORT_BUTTON_NAME;
 
     ofxUISpacer* titleSpacer;
     ofxUIDropDownList* cameraList;
@@ -38,6 +42,7 @@ private:
 
     void paintPixel( int pixelX, int pixelY, ofPixels pixels, float strength );
     void fillImageWithWhite( ofImage* image );
+    void saveCurrentImageWithTimestap();
 
 public:
     void setup();
