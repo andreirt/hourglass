@@ -125,11 +125,13 @@ void ofApp::setup(){
         this->gui->setVisible(true);
         this->cameraPanel->setVisible(true);
         this->imagePanel->setVisible(true);
+        ofShowCursor();
     }
     else {
         this->gui->setVisible(false);
         this->cameraPanel->setVisible(false);
         this->imagePanel->setVisible(false);
+        ofHideCursor();
     }
 
     // set camera
@@ -277,11 +279,13 @@ void ofApp::keyPressed(int key){
             this->gui->setVisible(false);
             this->cameraPanel->setVisible(false);
             this->imagePanel->setVisible(false);
+            ofHideCursor();
         }
         else {
             this->gui->setVisible(true);
             this->cameraPanel->setVisible(true);
             this->imagePanel->setVisible(true);
+            ofShowCursor();
         }
 
     }
