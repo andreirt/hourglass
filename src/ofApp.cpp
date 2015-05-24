@@ -94,7 +94,7 @@ void ofApp::setup(){
     this->twoHundredSeventyRotationToggle->setDrawOutline(true);
     this->cameraPanel->addWidgetDown(this->twoHundredSeventyRotationToggle);
 
-    this->imagePanel = new ofxUICanvas(200, 0, 370, 235);
+    this->imagePanel = new ofxUICanvas(190, 0, 400, 235);
     this->imagePanel->setUIColors( backgroundColor, outline, outlineHighlight, fillColor, fillHightlightColor, paddedColor, paddedOutlineColor );
     this->imagePanel->setFontSize(OFX_UI_FONT_SMALL, 8);
     this->imagePanel->setWidgetSpacing(10);
