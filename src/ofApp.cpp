@@ -13,9 +13,19 @@ const string ofApp::ZERO_DEGREES_LABEL = "0 graus";
 const string ofApp::NINETY_DEGREES_LABEL = "90 graus";
 const string ofApp::ONE_HUNDRED_EIGHTY_DEGREES_LABEL = "180 graus";
 const string ofApp::TWO_HUNDRED_SEVENTY_DEGREES_LABEL = "270 graus";
+const float ofApp::MAX_STRENGTH_AROUND_PIXEL = .15;
+
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    this->hideButtonReleased = false;
+    this->selectedCameraIndex = 0;
+    this->cameraWidth = 640;
+    this->cameraHeight = 480;
+    this->lastTimeImageWasSaved = 0;
+    this->pixelsPerFrame = 30;
+    this->intervalToSaveImage = 15;
+
 
     this->gui = new ofxUICanvas(0, 0, ofGetWidth(), ofGetHeight());
     this->gui->setWidgetSpacing(10);
