@@ -13,16 +13,26 @@ const string ofApp::ZERO_DEGREES_LABEL = "0 graus";
 const string ofApp::NINETY_DEGREES_LABEL = "90 graus";
 const string ofApp::ONE_HUNDRED_EIGHTY_DEGREES_LABEL = "180 graus";
 const string ofApp::TWO_HUNDRED_SEVENTY_DEGREES_LABEL = "270 graus";
+const float ofApp::MAX_STRENGTH_AROUND_PIXEL = .15;
+
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    this->hideButtonReleased = false;
+    this->selectedCameraIndex = 0;
+    this->cameraWidth = 640;
+    this->cameraHeight = 480;
+    this->lastTimeImageWasSaved = 0;
+    this->pixelsPerFrame = 30;
+    this->intervalToSaveImage = 15;
+
 
     this->gui = new ofxUICanvas(0, 0, ofGetWidth(), ofGetHeight());
     this->gui->setWidgetSpacing(10);
     gui->setFontSize(OFX_UI_FONT_SMALL, 8);
     gui->setFontSize(OFX_UI_FONT_LARGE, 18);
 
-    ofxUIColor backgroundColor = ofxUIColor::lightCoral;
+    ofxUIColor backgroundColor = ofxUIColor::white;
     ofxUIColor fillColor = ofxUIColor::black;
     ofxUIColor fillHightlightColor = ofxUIColor::black;
     ofxUIColor outline = ofxUIColor::black;
@@ -56,8 +66,20 @@ void ofApp::setup(){
     this->cameraList = this->cameraPanel->addDropDownList("Escolha a câmera", *cameras, 300, 10);
     this->cameraList->setAllowMultiple(false);
     this->cameraList->setDrawOutline(true);
+    this->cameraList->setAutoClose(true);
 
-    this->cameraPanel->addWidgetDown( new ofxUILabel(170, ofApp::CAMERA_WIDTH_LABEL, OFX_UI_FONT_SMALL) );
+    vector<ofxUILabelToggle *> toggles = this->cameraList->getToggles();
+    vector<ofxUILabelToggle *>::iterator togglesIterator;
+
+    for (togglesIterator = toggles.begin(); togglesIterator != toggles.end(); ++togglesIterator) {
+        ofxUILabelToggle* labelToggle = *togglesIterator;
+        labelToggle->setColorFillHighlight(ofxUIColor::black);
+        labelToggle->setColorFill(ofxUIColor::white);
+        labelToggle->setColorOutlineHighlight(ofxUIColor::black);
+        labelToggle->setColorBack(ofxUIColor::white);
+    }
+
+    this->cameraPanel->addWidgetDown( new ofxUILabel(180, ofApp::CAMERA_WIDTH_LABEL, OFX_UI_FONT_SMALL) );
     this->cameraWidthTextInput = new ofxUITextInput("CameraWidth", "1920", 80, 18) ;
     this->cameraWidthTextInput->setOnlyNumericInput(true);
     this->cameraWidthTextInput->setDrawOutline(true);
@@ -65,7 +87,7 @@ void ofApp::setup(){
     this->cameraPanel->addWidgetRight( cameraWidthTextInput );
     this->textInputs.push_back(this->cameraWidthTextInput);
 
-    ofxUILabel* cameraHeightLabel = new ofxUILabel(170, ofApp::CAMERA_HEIGHT_LABEL, OFX_UI_FONT_SMALL);
+    ofxUILabel* cameraHeightLabel = new ofxUILabel(180, ofApp::CAMERA_HEIGHT_LABEL, OFX_UI_FONT_SMALL);
     this->cameraPanel->addWidgetDown( cameraHeightLabel );
     this->cameraHeightTextInput = new ofxUITextInput("CameraHeight", "1080", 80, 18);
     this->cameraHeightTextInput->setOnlyNumericInput(true);
@@ -99,7 +121,7 @@ void ofApp::setup(){
     this->imagePanel->setFontSize(OFX_UI_FONT_SMALL, 8);
     this->imagePanel->setWidgetSpacing(10);
 
-    ofxUILabel* pixelsPerFrameLabel = new ofxUILabel(230, ofApp::PIXELS_PER_FRAME_LABEL, OFX_UI_FONT_SMALL);
+    ofxUILabel* pixelsPerFrameLabel = new ofxUILabel(250, ofApp::PIXELS_PER_FRAME_LABEL, OFX_UI_FONT_SMALL);
     this->imagePanel->addWidgetDown( pixelsPerFrameLabel );
 
     this->pixelsPerFrameTextInput =new ofxUITextInput("pixelsPerFrame", "30", 80, 18);
@@ -169,6 +191,7 @@ void ofApp::setup(){
 
     this->cameraPanel->loadSettings("camera.xml");
     this->imagePanel->loadSettings("image.xml");
+    this->gui->loadSettings("settings.xml");
 
     // reads values from controls and stores them into properties
     this->applyConfigurationChanges();
@@ -196,7 +219,7 @@ void ofApp::reset()
     // set camera
     vector<int> selectedCamera = this->cameraList->getSelectedIndeces();
     if (selectedCamera.size() > 0) {
-        this->videoGrabber->setDeviceID( selectedCamera[0] - 1 );
+        this->videoGrabber->setDeviceID( selectedCamera[0] );
     }
     else {
         this->videoGrabber->setDeviceID( 0 );
@@ -410,6 +433,7 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
 
             this->cameraPanel->saveSettings("camera.xml");
             this->imagePanel->saveSettings("image.xml");
+            this->gui->saveSettings("settings.xml");
             this->applyConfigurationChanges();
             this->reset();
             this->hideConfigurationPanel();
@@ -435,22 +459,22 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
 
 void ofApp::cameraPanelEvent(ofxUIEventArgs &e)
 {
-    if (e.getName() == ofApp::ZERO_DEGREES_LABEL) {
+    if (e.getName() == ofApp::ZERO_DEGREES_LABEL && e.getToggle()->getValue()) {
         this->ninetyRotationToggle->setValue(false);
         this->oneHundredEightyRotationToggle->setValue(false);
         this->twoHundredSeventyRotationToggle->setValue(false);
     }
-    else if (e.getName() == ofApp::NINETY_DEGREES_LABEL) {
+    else if (e.getName() == ofApp::NINETY_DEGREES_LABEL && e.getToggle()->getValue()) {
         this->zeroRotationToggle->setValue(false);
         this->oneHundredEightyRotationToggle->setValue(false);
         this->twoHundredSeventyRotationToggle->setValue(false);
     }
-    else if (e.getName() == ofApp::ONE_HUNDRED_EIGHTY_DEGREES_LABEL) {
+    else if (e.getName() == ofApp::ONE_HUNDRED_EIGHTY_DEGREES_LABEL && e.getToggle()->getValue()) {
         this->zeroRotationToggle->setValue(false);
         this->ninetyRotationToggle->setValue(false);
         this->twoHundredSeventyRotationToggle->setValue(false);
     }
-    else if (e.getName() == ofApp::TWO_HUNDRED_SEVENTY_DEGREES_LABEL) {
+    else if (e.getName() == ofApp::TWO_HUNDRED_SEVENTY_DEGREES_LABEL && e.getToggle()->getValue()) {
         this->zeroRotationToggle->setValue(false);
         this->ninetyRotationToggle->setValue(false);
         this->oneHundredEightyRotationToggle->setValue(false);

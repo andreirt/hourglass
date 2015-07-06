@@ -10,25 +10,25 @@ private:
     ofxUICanvas *cameraPanel;
     ofxUICanvas *imagePanel;
 
-    bool hideButtonReleased = false;
+    bool hideButtonReleased;
 
     ofVideoGrabber* videoGrabber;
-    int selectedCameraIndex = 0;
+    int selectedCameraIndex;
 
     ofImage screenImage;
     int x, y;
 
-    int cameraWidth = 640;
-    int cameraHeight = 480;
+    int cameraWidth;
+    int cameraHeight;
 
     int imageWidth;
     int imageHeight;
 
-    float lastTimeImageWasSaved = 0;
-    int pixelsPerFrame = 30;
-    int intervalToSaveImage = 15;
+    float lastTimeImageWasSaved;
+    int pixelsPerFrame;
+    int intervalToSaveImage;
 
-    const float MAX_STRENGTH_AROUND_PIXEL = .15;
+    const static float MAX_STRENGTH_AROUND_PIXEL;
     const static string CAMERA_WIDTH_LABEL;
     const static string CAMERA_HEIGHT_LABEL;
     const static string PIXELS_PER_FRAME_LABEL;
