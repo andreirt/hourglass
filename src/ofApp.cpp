@@ -233,6 +233,7 @@ void ofApp::update(){
     this->videoGrabber->update();
 
     if (this->gui->isVisible()) {
+        ofShowCursor();
         return;
     }
 
