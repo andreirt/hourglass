@@ -1,6 +1,6 @@
 # Hourglass
 
-Ported from Adobe Air / ActionScript 3 to C++ / OpenFrameworks by Andrei Thomaz.
+Ported from Adobe Air / ActionScript 3 to C++ / OpenFrameworks by Andrei Thomaz and Vitor Andrioli.
 
 ### Building with Code::Blocks (Windows)
 
