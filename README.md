@@ -14,6 +14,12 @@ Ported from Adobe Air / ActionScript 3 to C++ / OpenFrameworks by Andrei Thomaz 
 2. Clone ofxUI repository under addons/ folder
 3. Open Hourglass.xcodeproj in Xcode and build the project
 
+### Building with Code::Blocks (Linux)
+
+1. Clone this repository under apps/myApps/ folder
+2. Clone ofxUI repository under addons/ folder
+3. Open Hourglass_Linux.workspace in Code::Blocks and build the project
+
 ## License
 
 Copyright (c) 2015 Andrei Rubina Thomaz. Licensed under the [MIT license](bin/license.txt).
