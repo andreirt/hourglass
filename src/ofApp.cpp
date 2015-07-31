@@ -84,7 +84,7 @@ void ofApp::setup(){
         cameras->push_back(device.deviceName);
     }
 
-    this->cameraList = this->cameraPanel->addDropDownList(this->currentStrings["pickCamera"], *cameras, 300, 10);
+    this->pickCameraLabel = this->cameraList = this->cameraPanel->addDropDownList(this->currentStrings["pickCamera"], *cameras, 300, 10);
     this->cameraList->setAllowMultiple(false);
     this->cameraList->setDrawOutline(true);
     this->cameraList->setAutoClose(true);
@@ -109,7 +109,7 @@ void ofApp::setup(){
     this->cameraPanel->addWidgetRight( cameraWidthTextInput );
     this->textInputs.push_back(this->cameraWidthTextInput);
 
-    ofxUILabel* cameraHeightLabel = new ofxUILabel(180, this->currentStrings["cameraHeight"], OFX_UI_FONT_SMALL);
+    this->cameraHeightLabel = new ofxUILabel(180, this->currentStrings["cameraHeight"], OFX_UI_FONT_SMALL);
     this->cameraPanel->addWidgetDown( cameraHeightLabel );
     this->cameraHeightTextInput = new ofxUITextInput("CameraHeight", "1080", 80, 18);
     this->cameraHeightTextInput->setOnlyNumericInput(true);
@@ -120,7 +120,7 @@ void ofApp::setup(){
 
     this->rotations = 0;
 
-    this->cameraPanel->addLabel( this->currentStrings["imageRotation"], OFX_UI_FONT_SMALL);
+    this->imageRotationLabel = this->cameraPanel->addLabel( this->currentStrings["imageRotation"], OFX_UI_FONT_SMALL);
 
     this->zeroRotationToggle = new ofxUIToggle( this->currentStrings["zeroDegress"], true, 16, 16);
     this->zeroRotationToggle->setDrawOutline(true);
@@ -143,10 +143,10 @@ void ofApp::setup(){
     this->imagePanel->setFontSize(OFX_UI_FONT_SMALL, 8);
     this->imagePanel->setWidgetSpacing(10);
 
-    ofxUILabel* pixelsPerFrameLabel = new ofxUILabel(250, this->currentStrings["pixelsPerFrame"], OFX_UI_FONT_SMALL);
+    this->pixelsPerFrameLabel = new ofxUILabel(250, this->currentStrings["pixelsPerFrame"], OFX_UI_FONT_SMALL);
     this->imagePanel->addWidgetDown( pixelsPerFrameLabel );
 
-    this->pixelsPerFrameTextInput =new ofxUITextInput("pixelsPerFrame", "30", 80, 18);
+    this->pixelsPerFrameTextInput = new ofxUITextInput("pixelsPerFrame", "30", 80, 18);
     this->pixelsPerFrameTextInput->setOnlyNumericInput(true);
     this->pixelsPerFrameTextInput->setDrawOutline(true);
     this->imagePanel->addWidgetRight( pixelsPerFrameTextInput );
@@ -166,10 +166,10 @@ void ofApp::setup(){
     this->imagePanel->addWidgetRight( this->intervalToSaveTextInput );
     this->textInputs.push_back(this->intervalToSaveTextInput);
 
-    ofxUILabel* minutesLabel = new ofxUILabel(90, this->currentStrings["minutes"], OFX_UI_FONT_SMALL);
+    this->minutesLabel = new ofxUILabel(90, this->currentStrings["minutes"], OFX_UI_FONT_SMALL);
     this->imagePanel->addWidgetRight( minutesLabel );
 
-    ofxUILabelButton* clearButton = this->gui->addLabelButton( this->currentStrings["resetImage"], false, 150, 20);
+    this->clearButton = this->gui->addLabelButton( this->currentStrings["resetImage"], false, 150, 20);
     clearButton->setDrawFill(true);
     clearButton->setDrawOutline(true);
     this->imagePanel->addWidgetDown( clearButton );
@@ -187,7 +187,7 @@ void ofApp::setup(){
 
     this->gui->addSpacer();
 
-    ofxUILabelButton* saveButton = this->gui->addLabelButton( this->currentStrings["save"], false, 100, 20);
+    this->saveButton = this->gui->addLabelButton( this->currentStrings["save"], false, 100, 20);
     saveButton->setDrawFill(true);
     saveButton->setDrawOutline(true);
 
@@ -197,11 +197,11 @@ void ofApp::setup(){
     this->gui->addWidgetRight(cancelButton);
     this->gui->addSpacer();
 
-    this->gui->addLabel( this->currentStrings["credits1"], OFX_UI_FONT_SMALL);
-    this->gui->addLabel( this->currentStrings["credits2"], OFX_UI_FONT_SMALL);
-    this->gui->addLabel( this->currentStrings["credits3"], OFX_UI_FONT_SMALL);
-    this->gui->addLabel( this->currentStrings["credits4"], OFX_UI_FONT_SMALL);
-    this->gui->addLabel( this->currentStrings["credits5"], OFX_UI_FONT_SMALL);
+    this->credits1Label = this->gui->addLabel( this->currentStrings["credits1"], OFX_UI_FONT_SMALL);
+    this->credits2Label = this->gui->addLabel( this->currentStrings["credits2"], OFX_UI_FONT_SMALL);
+    this->credits3Label = this->gui->addLabel( this->currentStrings["credits3"], OFX_UI_FONT_SMALL);
+    this->credits4Label = this->gui->addLabel( this->currentStrings["credits4"], OFX_UI_FONT_SMALL);
+    this->credits5Label = this->gui->addLabel( this->currentStrings["credits5"], OFX_UI_FONT_SMALL);
     this->gui->addSpacer();
 
     this->gui->addLabel( this->currentStrings["support"] );
@@ -497,8 +497,34 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
                 this->changeLocaleButton->getLabelWidget()->setLabel(ENGLISH_LABEL);
             }
 
+            
+            this->pickCameraLabel->setLabelText( this->currentStrings["pickCamera"] );
             this->cameraWidthLabel->setLabel( this->currentStrings["cameraWidth"] );
+            this->cameraHeightLabel->setLabel( this->currentStrings["cameraHeight"] );
+            
+            this->saveButton->setLabelText( this->currentStrings["save"] );
             this->cancelButton->setLabelText( this->currentStrings["cancel"] );
+            
+            this->credits1Label->setLabel( this->currentStrings["credits1"] );
+            this->credits2Label->setLabel( this->currentStrings["credits2"] );
+            this->credits3Label->setLabel( this->currentStrings["credits3"] );
+            this->credits4Label->setLabel( this->currentStrings["credits4"] );
+            this->credits5Label->setLabel( this->currentStrings["credits5"] );
+            
+            this->zeroRotationToggle->getLabelWidget()->setLabel( this->currentStrings["zeroDegress"] );
+            this->ninetyRotationToggle->getLabelWidget()->setLabel( this->currentStrings["ninetyDegress"] );
+            this->oneHundredEightyRotationToggle->getLabelWidget()->setLabel( this->currentStrings["oneHundredEightyDegress"] );
+            this->twoHundredSeventyRotationToggle->getLabelWidget()->setLabel( this->currentStrings["twoHundredSeventyDegress"] );
+            
+            this->imageRotationLabel->setLabel( this->currentStrings["imageRotation"]);
+            this->pixelsPerFrameLabel->setLabel( this->currentStrings["pixelsPerFrame"] );
+            this->minutesLabel->setLabel( this->currentStrings["minutes"] );
+            this->clearButton->setLabelText( this->currentStrings["resetImage"] );
+            
+            this->saveImageToggle->getLabelWidget()->setLabel( this->currentStrings["saveImage"] );
+            this->showAtStartupToggle->getLabelWidget()->setLabel( this->currentStrings["showAtStartup"] );
+            this->fullScreenToggle->getLabelWidget()->setLabel( this->currentStrings["fullScreen"] );
+            
         }
     }
 }

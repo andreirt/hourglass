@@ -53,9 +53,25 @@ private:
     ofxUILabel* cameraWidthLabel;
     ofxUITextInput* cameraWidthTextInput;
 
+    ofxUILabel* cameraHeightLabel;
     ofxUITextInput* cameraHeightTextInput;
     ofxUITextInput* pixelsPerFrameTextInput;
     ofxUITextInput* intervalToSaveTextInput;
+    
+    ofxUILabel* imageRotationLabel;
+    
+    ofxUIDropDownList* pickCameraLabel;
+    
+    ofxUILabel* credits1Label;
+    ofxUILabel* credits2Label;
+    ofxUILabel* credits3Label;
+    ofxUILabel* credits4Label;
+    ofxUILabel* credits5Label;
+    
+    ofxUILabel* pixelsPerFrameLabel;
+    
+    ofxUILabel* minutesLabel;
+    ofxUILabelButton* clearButton;
 
     ofxUIToggle* zeroRotationToggle;
     ofxUIToggle* ninetyRotationToggle;
@@ -72,6 +88,7 @@ private:
     ofxUIToggle* saveImageToggle;
     bool saveImage;
 
+    ofxUILabelButton* saveButton;
     ofxUILabelButton* cancelButton;
 
     std::vector<ofxUITextInput*> textInputs;
