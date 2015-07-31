@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxUI.h"
+#include <map>
 
 class ofApp : public ofBaseApp{
 
@@ -9,6 +10,10 @@ private:
     ofxUICanvas *gui;
     ofxUICanvas *cameraPanel;
     ofxUICanvas *imagePanel;
+
+    std::map<string, string> ptStrings;
+    std::map<string, string> enStrings;
+    std::map<string, string> currentStrings;
 
     bool hideButtonReleased;
 
@@ -29,23 +34,25 @@ private:
     int intervalToSaveImage;
 
     const static float MAX_STRENGTH_AROUND_PIXEL;
-    const static string CAMERA_WIDTH_LABEL;
-    const static string CAMERA_HEIGHT_LABEL;
-    const static string PIXELS_PER_FRAME_LABEL;
-    const static string SAVE_IMAGE_LABEL;
-    const static string SAVE_LABEL;
-    const static string CANCEL_LABEL;
-    const static string RESET_IMAGE_LABEL;
     const static string SUPPORT_BUTTON_NAME;
+    const static string CHANGE_LOCALE_BUTTON_NAME;
 
-    const static string ZERO_DEGREES_LABEL;
-    const static string NINETY_DEGREES_LABEL;
-    const static string ONE_HUNDRED_EIGHTY_DEGREES_LABEL;
-    const static string TWO_HUNDRED_SEVENTY_DEGREES_LABEL;
+    const static string ENGLISH_LABEL;
+    const static string PORTUGUESE_LABEL;
+
+    int currentLocale;
+    const static int LOCALE_ENGLISH = 0;
+    const static int LOCALE_PORTUGUESE = 1;
+
+    ofxUILabel* titleLabel;
+    ofxUILabelButton* changeLocaleButton;
 
     ofxUISpacer* titleSpacer;
     ofxUIDropDownList* cameraList;
+
+    ofxUILabel* cameraWidthLabel;
     ofxUITextInput* cameraWidthTextInput;
+
     ofxUITextInput* cameraHeightTextInput;
     ofxUITextInput* pixelsPerFrameTextInput;
     ofxUITextInput* intervalToSaveTextInput;
@@ -64,6 +71,8 @@ private:
 
     ofxUIToggle* saveImageToggle;
     bool saveImage;
+
+    ofxUILabelButton* cancelButton;
 
     std::vector<ofxUITextInput*> textInputs;
 
