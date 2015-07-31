@@ -204,7 +204,7 @@ void ofApp::setup(){
     this->credits5Label = this->gui->addLabel( this->currentStrings["credits5"], OFX_UI_FONT_SMALL);
     this->gui->addSpacer();
 
-    this->gui->addLabel( this->currentStrings["support"] );
+    this->supportLabel = this->gui->addLabel( this->currentStrings["support"] );
     this->gui->addImageButton(ofApp::SUPPORT_BUTTON_NAME, "funarte.png", false, 509, 60);
 
     ofAddListener(this->gui->newGUIEvent, this, &ofApp::guiEvent);
@@ -524,6 +524,8 @@ void ofApp::guiEvent(ofxUIEventArgs &e)
             this->saveImageToggle->getLabelWidget()->setLabel( this->currentStrings["saveImage"] );
             this->showAtStartupToggle->getLabelWidget()->setLabel( this->currentStrings["showAtStartup"] );
             this->fullScreenToggle->getLabelWidget()->setLabel( this->currentStrings["fullScreen"] );
+            
+            this->supportLabel->setLabel( this->currentStrings["support"] );
             
         }
     }

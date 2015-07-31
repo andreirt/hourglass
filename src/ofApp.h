@@ -90,6 +90,8 @@ private:
 
     ofxUILabelButton* saveButton;
     ofxUILabelButton* cancelButton;
+    
+    ofxUILabel* supportLabel;
 
     std::vector<ofxUITextInput*> textInputs;
 
