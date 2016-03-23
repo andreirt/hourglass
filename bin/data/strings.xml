@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-	<cameraWidth>
-		<en>Camera width</en>
-		<pt>Largura da câmera</pt>
-	</cameraWidth>
-	<cameraHeight>
-		<en>Camera height</en>
-		<pt>Altura da câmera</pt>
-	</cameraHeight>
-	<pixelsPerFrame>
+    <deviceResolution>
+        <en>Device resolution</en>
+        <pt>Resolução da câmera</pt>
+    </deviceResolution>
+    <pixelsPerFrame>
 		<en>Pixels per frame (speed)</en>
 		<pt>Pixels por frame (velocidade)</pt>
 	</pixelsPerFrame>
