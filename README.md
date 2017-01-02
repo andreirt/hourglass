@@ -4,7 +4,7 @@ Ported from Adobe Air / ActionScript 3 to C++ / OpenFrameworks by Andrei Thomaz,
 
 http://maquinasdotempo.art.br/ 
 
-https://github.com/andreirt/candle-clock
+https://github.com/andreirt/hourglass
 
 ### Building with Code::Blocks (Windows)
 
