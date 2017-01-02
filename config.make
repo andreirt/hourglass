@@ -140,7 +140,3 @@
 ################################################################################
 # PROJECT_CXX = 
 # PROJECT_CC = 
-
-ifndef APPNAME
-   APPNAME = Hourglass_Linux
-endif

@@ -1,23 +1,27 @@
 # Hourglass
 
-Ported from Adobe Air / ActionScript 3 to C++ / OpenFrameworks by Andrei Thomaz and Vitor Andrioli.
+Ported from Adobe Air / ActionScript 3 to C++ / OpenFrameworks by Andrei Thomaz, Victor Fornaciari and Vitor Andrioli.
+
+http://maquinasdotempo.art.br/ 
+
+https://github.com/andreirt/candle-clock
 
 ### Building with Code::Blocks (Windows)
 
 1. Clone this repository under apps/myApps/ folder
-2. Clone ofxUI repository under addons/ folder
+2. Clone ofxImGui repository under addons/ folder
 3. Open Hourglass.workspace in Code::Blocks and build the project
 
 ### Building with Xcode (Mac)
 
 1. Clone this repository under apps/myApps/ folder
-2. Clone ofxUI repository under addons/ folder
+2. Clone ofxImGui repository under addons/ folder
 3. Open Hourglass.xcodeproj in Xcode and build the project
 
 ### Building with Code::Blocks (Linux)
 
 1. Clone this repository under apps/myApps/ folder
-2. Clone ofxUI repository under addons/ folder
+2. Clone ofxImGui repository under addons/ folder
 3. Open Hourglass_Linux.workspace in Code::Blocks and build the project
 
 ## License
