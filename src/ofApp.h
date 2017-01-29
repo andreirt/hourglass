@@ -73,4 +73,5 @@ public:
     void draw();
 
     void keyPressed(int key);
+    void mouseReleased(ofMouseEventArgs&);
 };
